@@ -9,4 +9,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="timer.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="timer.ico" />
+  </ItemGroup>
+
 </Project>

@@ -20,12 +20,12 @@ namespace Timer_App
         // Initialize the seconds elapsed object
         private SecondsElapsed secondsElapsed = new SecondsElapsed();
 
+        // Initialize the timer control
+        private DispatcherTimer dispatcherTimer = new DispatcherTimer();
+
         public MainWindow()
         {
             InitializeComponent();
-
-            // Initialize the timer control
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
             // Set the time between "ticks"
             dispatcherTimer.Interval = TimeSpan.FromSeconds(1);
@@ -33,12 +33,37 @@ namespace Timer_App
             // Subscribe to the tick event (add a function that occurs when it ticks)
             dispatcherTimer.Tick += DispatcherTimer_Tick;
 
-            dispatcherTimer.Start();
         }
 
         private void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
             secondsElapsed.increment();
+            timeDisplay.Text = secondsElapsed.secondsFormatted();
+        }
+
+        private void StartStop_Click(object sender, RoutedEventArgs e)
+        {
+            if (dispatcherTimer.IsEnabled)
+            {
+                dispatcherTimer.Stop();
+                startStop.Content = "Start";
+            }
+            else
+            {
+                dispatcherTimer.Start();
+                startStop.Content = "Stop";
+            }
+        }
+
+        private void reset_Click(object sender, RoutedEventArgs e)
+        {
+            if (dispatcherTimer.IsEnabled)
+            {
+                dispatcherTimer.Stop();
+                startStop.Content = "Start";
+            }
+
+            secondsElapsed.reset();
             timeDisplay.Text = secondsElapsed.secondsFormatted();
         }
     }
@@ -57,6 +82,7 @@ namespace Timer_App
             seconds = 0;
         }
 
+        // For displaying the seconds passed as text on the window
         public string secondsFormatted()
         {
             TimeSpan span = TimeSpan.FromSeconds(seconds);
