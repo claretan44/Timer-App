@@ -26,6 +26,8 @@ namespace Timer_App
         public MainWindow()
         {
             InitializeComponent();
+            Left = System.Windows.SystemParameters.WorkArea.Width - (Width + 50);
+            Top = System.Windows.SystemParameters.WorkArea.Height - (Height + 30);
 
             // Set the time between "ticks"
             dispatcherTimer.Interval = TimeSpan.FromSeconds(1);
